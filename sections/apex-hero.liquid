@@ -1,0 +1,366 @@
+<div
+  class="apex-hero"
+  style="
+    --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --desktop-height: {{ section.settings.desktop_height }}vh;
+    --mobile-height: {{ section.settings.mobile_height }}vh;
+  "
+>
+
+  <div class="apex-hero__bg">
+    {%- if section.settings.image != blank -%}
+      <picture>
+        {%- if section.settings.image_mobile != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.image_mobile | image_url: width: 900 }}"
+          >
+        {%- endif -%}
+
+        {{
+          section.settings.image
+          | image_url: width: 2400
+          | image_tag:
+            class: 'apex-hero__image',
+            widths: '750, 1100, 1500, 1800, 2200, 2400',
+            sizes: '100vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            alt: section.settings.image.alt
+        }}
+      </picture>
+    {%- else -%}
+      <div class="apex-hero__placeholder">
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+
+    <div class="apex-hero__overlay" aria-hidden="true"></div>
+  </div>
+
+  <div class="apex-hero__content page-width">
+    <div class="apex-hero__content-inner fade-up">
+
+      {%- if section.settings.title != blank -%}
+        <h1 class="apex-hero__title">
+          {{ section.settings.title | escape }}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="apex-hero__button-wrapper">
+          <a
+            href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
+            class="button button--primary apex-hero__button"
+          >
+            {{ section.settings.button_label | escape }}
+          </a>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .apex-hero {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    height: var(--desktop-height);
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  .apex-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background-color: #000000;
+  }
+
+  .apex-hero__bg picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .apex-hero__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    animation: apexHeroZoom 20s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  @keyframes apexHeroZoom {
+    from {
+      transform: scale(1);
+    }
+
+    to {
+      transform: scale(1.07);
+    }
+  }
+
+  .apex-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, calc(var(--overlay-opacity) * 0.65)) 0%,
+        rgba(0, 0, 0, calc(var(--overlay-opacity) * 0.40)) 40%,
+        rgba(0, 0, 0, calc(var(--overlay-opacity) * 0.55)) 70%,
+        rgba(0, 0, 0, calc(var(--overlay-opacity) * 0.88)) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.25) 0%,
+        rgba(0, 0, 0, 0.05) 50%,
+        rgba(0, 0, 0, 0.25) 100%
+      );
+  }
+
+  .apex-hero__content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    padding: 70px 20px;
+  }
+
+  .apex-hero__content-inner {
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .apex-hero__title {
+    margin: 0;
+    color: #ffffff;
+
+    font-size: clamp(54px, 6.5vw, 104px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+
+    text-transform: uppercase;
+
+    text-shadow:
+      0 3px 14px rgba(0, 0, 0, 0.90),
+      0 12px 40px rgba(0, 0, 0, 0.65);
+  }
+
+  .apex-hero__button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 34px;
+  }
+
+  .apex-hero__button {
+    min-width: 210px;
+    min-height: 54px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 34px;
+
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease;
+  }
+
+  .apex-hero__button:hover {
+    transform: translateY(-2px);
+  }
+
+  .apex-hero__placeholder,
+  .apex-hero__placeholder svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .apex-hero__placeholder svg {
+    display: block;
+    fill: #222222;
+  }
+
+
+  /* TABLET */
+
+  @media screen and (max-width: 989px) {
+
+    .apex-hero {
+      min-height: 580px;
+    }
+
+    .apex-hero__content {
+      padding-top: 55px;
+      padding-bottom: 55px;
+    }
+
+    .apex-hero__title {
+      font-size: clamp(48px, 9vw, 78px);
+    }
+
+  }
+
+
+  /* MOBILE */
+
+  @media screen and (max-width: 749px) {
+
+    .apex-hero {
+      height: var(--mobile-height);
+      min-height: 560px;
+    }
+
+    .apex-hero__image {
+      object-position: center center;
+      animation-duration: 16s;
+    }
+
+    .apex-hero__overlay {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.42) 0%,
+          rgba(0, 0, 0, 0.35) 35%,
+          rgba(0, 0, 0, 0.58) 70%,
+          rgba(0, 0, 0, 0.90) 100%
+        );
+    }
+
+    .apex-hero__content {
+      padding: 50px 20px;
+    }
+
+    .apex-hero__content-inner {
+      max-width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .apex-hero__title {
+      font-size: clamp(42px, 13vw, 64px);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+    }
+
+    .apex-hero__button-wrapper {
+      margin-top: 28px;
+    }
+
+    .apex-hero__button {
+      width: min(100%, 300px);
+      min-width: 0;
+      min-height: 52px;
+    }
+
+  }
+
+
+  /* REDUCED MOTION */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .apex-hero__image {
+      animation: none;
+    }
+
+    .apex-hero__button {
+      transition: none;
+    }
+
+  }
+</style>
+
+{% schema %}
+{
+  "name": "APEX Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay strength",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "min": 60,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Desktop height",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "min": 60,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "label": "Mobile height",
+      "default": 80
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "default": "BUILT FOR YOUR PEAK.",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "SHOP ALL",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "APEX Hero"
+    }
+  ]
+}
+{% endschema %}

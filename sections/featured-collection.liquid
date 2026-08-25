@@ -1,0 +1,99 @@
+<div class="featured-collection section-spacing fade-up">
+  <div class="page-width">
+    
+    <div class="section-header text-center">
+      {%- if section.settings.subheading != blank -%}
+        <span class="h6 color-secondary">{{ section.settings.subheading | escape }}</span>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="h2">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+    </div>
+
+    <div class="product-grid">
+      {%- assign collection = collections[section.settings.collection] -%}
+      
+      {%- if collection != blank and collection.products_count > 0 -%}
+        {%- for product in collection.products limit: section.settings.products_to_show -%}
+          <div class="product-grid__item fade-up delay-{{ forloop.index | modulo: 4 | plus: 1 }}">
+            {% render 'product-card', product: product %}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <div class="product-grid__item">
+            <div class="product-card">
+              <div class="product-card__image-wrapper">
+                {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="product-card__info">
+                <span class="product-card__title">Compression T-Shirt — Black</span>
+                <span class="product-card__price">1,200 EGP</span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .section-spacing {
+    padding: 8rem 0;
+  }
+  .section-header {
+    margin-bottom: 5rem;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  @media screen and (min-width: 990px) {
+    .product-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4rem 2rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "THE ASCENT",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "default": "DROP 001",
+      "label": "Subheading"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "default": 4,
+      "label": "Products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

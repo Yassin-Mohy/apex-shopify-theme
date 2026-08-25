@@ -1,0 +1,13 @@
+<section class="performance-features page-width section-spacing">
+  {%- for block in section.blocks -%}
+    <article class="performance-block fade-up" {{ block.shopify_attributes }}>
+      {%- if block.settings.image != blank -%}
+        <div class="perf-image">{% render 'responsive-image', image: block.settings.image, class: 'media-cover', sizes: '(min-width: 990px) 50vw, 100vw' %}</div>
+      {%- endif -%}
+      <div class="perf-content"><h2 class="h3">{{ block.settings.heading }}</h2><div class="rte color-secondary">{{ block.settings.text }}</div></div>
+    </article>
+  {%- endfor -%}
+</section>
+{% schema %}
+{"name":"Performance features","max_blocks":6,"blocks":[{"type":"feature","name":"Feature","settings":[{"type":"image_picker","id":"image","label":"Image"},{"type":"text","id":"heading","label":"Heading","default":"PERFORMANCE FIT"},{"type":"richtext","id":"text","label":"Text","default":"<p>Designed to move through every session.</p>"}]}],"presets":[{"name":"Performance features","blocks":[{"type":"feature"},{"type":"feature"}]}]}
+{% endschema %}

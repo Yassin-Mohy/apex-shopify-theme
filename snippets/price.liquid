@@ -1,0 +1,29 @@
+<div class="price {% if product.compare_at_price > product.price %}price--on-sale{% endif %}">
+  {%- if product.compare_at_price > product.price -%}
+    <span class="visually-hidden">Regular price</span>
+    <s class="price-item price-item--regular color-secondary">
+      {{ product.compare_at_price | money }}
+    </s>
+    <span class="visually-hidden">Sale price</span>
+    <span class="price-item price-item--sale">
+      {{ product.price | money }}
+    </span>
+  {%- else -%}
+    <span class="visually-hidden">Regular price</span>
+    <span class="price-item price-item--regular">
+      {{ product.price | money }}
+    </span>
+  {%- endif -%}
+</div>
+
+<style>
+  .price {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+  .price-item--sale {
+    color: var(--color-error);
+  }
+</style>

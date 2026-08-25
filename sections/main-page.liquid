@@ -1,0 +1,1446 @@
+{%- if request.page_type == '404' -%}
+
+  <section class="main-page page-width section-spacing text-center">
+
+    <h1 class="h1 uppercase">
+      {{ section.settings.title | default: '404 — PAGE NOT FOUND' }}
+    </h1>
+
+    <div class="rte color-secondary">
+      <p>{{ section.settings.content }}</p>
+    </div>
+
+    <a class="button button--primary" href="{{ routes.root_url }}">
+      RETURN HOME
+    </a>
+
+  </section>
+
+
+{%- elsif page.handle == 'about-us' or page.handle == 'about' -%}
+
+  <section class="apex-about">
+
+    <div class="apex-about__inner">
+
+      <h1 class="apex-about__title">
+        ABOUT US
+      </h1>
+
+      <div class="apex-about__content">
+        {{ page.content }}
+      </div>
+
+    </div>
+
+  </section>
+
+
+{%- elsif page.handle == 'contact' -%}
+
+  <section class="apex-contact">
+
+    <div class="apex-contact__inner">
+
+      <h1 class="apex-contact__title">
+        CONTACT
+      </h1>
+
+
+      <div class="apex-contact__intro">
+
+        <p>
+          Questions about sizing, orders, shipping, or returns?
+          <br>
+          We’re here to help.
+        </p>
+
+        <p class="apex-contact__details">
+          Email: Apexwear.business@gmail.com
+          <br>
+          Instagram: @apexwear_eg
+          <br>
+          We usually respond within 24 hours.
+        </p>
+
+      </div>
+
+
+      {% form 'contact', class: 'apex-contact__form' %}
+
+        {%- if form.posted_successfully? -%}
+
+          <div class="apex-contact__success">
+            THANK YOU. YOUR MESSAGE HAS BEEN SENT.
+          </div>
+
+        {%- endif -%}
+
+
+        {{ form.errors | default_errors }}
+
+
+        <div class="apex-contact__row">
+
+          <div class="apex-contact__field">
+
+            <label for="ContactFormName">
+              NAME
+            </label>
+
+            <input
+              type="text"
+              id="ContactFormName"
+              name="contact[name]"
+              value="{{ form.name }}"
+              placeholder="Name"
+            >
+
+          </div>
+
+
+          <div class="apex-contact__field">
+
+            <label for="ContactFormEmail">
+              EMAIL
+            </label>
+
+            <input
+              type="email"
+              id="ContactFormEmail"
+              name="contact[email]"
+              value="{{ form.email }}"
+              placeholder="Email"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="apex-contact__field">
+
+          <label for="ContactFormPhone">
+            PHONE
+          </label>
+
+          <input
+            type="tel"
+            id="ContactFormPhone"
+            name="contact[phone]"
+            value="{{ form.phone }}"
+            placeholder="Phone"
+          >
+
+        </div>
+
+
+        <div class="apex-contact__field">
+
+          <label for="ContactFormMessage">
+            MESSAGE
+          </label>
+
+          <textarea
+            rows="8"
+            id="ContactFormMessage"
+            name="contact[body]"
+            placeholder="How can we help?"
+            required
+          >{{ form.body }}</textarea>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="apex-contact__submit"
+        >
+          SUBMIT
+        </button>
+
+      {% endform %}
+
+    </div>
+
+  </section>
+
+
+{%- elsif page.handle == 'shipping-policy' -%}
+
+  <section class="apex-policy">
+
+    <div class="apex-policy__inner">
+
+
+      <div class="apex-policy__header">
+
+        <span class="apex-policy__eyebrow">
+          APEX CUSTOMER CARE
+        </span>
+
+        <h1 class="apex-policy__title">
+          SHIPPING POLICY
+        </h1>
+
+      </div>
+
+
+      <div class="apex-policy__content">
+
+
+        <div class="apex-policy__block apex-policy__block--english">
+
+          <h2>
+            SHIPPING & DELIVERY
+          </h2>
+
+          <p>
+            Orders are prepared and delivered within
+            <strong>2–5 business days</strong>.
+            Delivery times may vary depending on your location and courier availability.
+          </p>
+
+          <p>
+            For any questions regarding your delivery,
+            please contact our support team.
+          </p>
+
+        </div>
+
+
+        <div class="apex-policy__divider"></div>
+
+
+        <div
+          class="apex-policy__block apex-policy__block--arabic"
+          dir="rtl"
+        >
+
+          <h2>
+            الشحن والتوصيل
+          </h2>
+
+          <p>
+            يتم تجهيز وتوصيل الطلبات خلال
+            <strong>2–5 أيام عمل</strong>.
+            قد تختلف مدة التوصيل حسب موقعك ومدى توفر خدمة الشحن.
+          </p>
+
+          <p>
+            لأي استفسار بخصوص التوصيل،
+            يمكنك التواصل مع فريق الدعم.
+          </p>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+{%- elsif page.handle == 'return-policy' -%}
+
+  <section class="apex-return-policy">
+
+    <div class="apex-return-policy__inner">
+
+
+      <div class="apex-return-policy__header">
+
+        <span class="apex-return-policy__eyebrow">
+          APEX CUSTOMER CARE
+        </span>
+
+        <h1 class="apex-return-policy__title">
+          RETURN POLICY
+        </h1>
+
+        <p class="apex-return-policy__subtitle">
+          Everything you need to know about returns, exchanges, refunds, and order issues.
+        </p>
+
+      </div>
+
+
+      <div class="apex-return-policy__content rte">
+        {{ page.content }}
+      </div>
+
+
+      <div class="apex-return-policy__contact">
+
+        <span>
+          NEED HELP?
+        </span>
+
+        <a
+          href="https://www.instagram.com/apexwear_eg/"
+          target="_blank"
+          rel="noopener"
+        >
+          @APEXWEAR_EG
+        </a>
+
+        <span class="apex-return-policy__contact-divider">
+          /
+        </span>
+
+        <a href="mailto:Apexwear.business@gmail.com">
+          APEXWEAR.BUSINESS@GMAIL.COM
+        </a>
+
+      </div>
+
+
+    </div>
+
+  </section>
+
+
+
+{%- elsif page.handle == 'returns-exchanges' -%}
+
+  <section class="apex-return-policy">
+
+    <div class="apex-return-policy__inner">
+
+      <div class="apex-return-policy__header">
+
+        <span class="apex-return-policy__eyebrow">
+          APEX CUSTOMER CARE
+        </span>
+
+        <h1 class="apex-return-policy__title">
+          RETURN POLICY
+        </h1>
+
+        <p class="apex-return-policy__subtitle">
+          Please review our return and exchange terms before submitting a request.
+        </p>
+
+      </div>
+
+      <div class="apex-return-policy__content rte">
+        {{ page.content }}
+      </div>
+
+      <div class="apex-return-policy__contact">
+
+        <span>
+          NEED HELP?
+        </span>
+
+        <a
+          href="https://www.instagram.com/apexwear_eg/"
+          target="_blank"
+          rel="noopener"
+        >
+          @APEXWEAR_EG
+        </a>
+
+        <span class="apex-return-policy__contact-divider">
+          /
+        </span>
+
+        <a href="mailto:Apexwear.business@gmail.com">
+          APEXWEAR.BUSINESS@GMAIL.COM
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+{%- else -%}
+
+  <section class="main-page page-width section-spacing text-center">
+
+    <h1 class="h1 uppercase">
+      {{ page.title }}
+    </h1>
+
+    <div class="rte">
+      {{ page.content }}
+    </div>
+
+  </section>
+
+{%- endif -%}
+
+
+
+<style>
+
+
+/* =========================
+   ABOUT
+========================== */
+
+.apex-about {
+  width: 100%;
+  background: #000;
+  color: #fff;
+  padding: 90px 24px 110px;
+}
+
+.apex-about__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.apex-about__title {
+  margin: 0 0 55px;
+  font-size: clamp(52px, 6vw, 86px);
+  line-height: .95;
+  text-transform: uppercase;
+}
+
+.apex-about__content {
+  max-width: 780px;
+  margin: 0 auto;
+  color: rgba(255,255,255,.78);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.apex-about__content p {
+  margin: 0 0 28px;
+}
+
+.apex-about__content strong {
+  color: #fff;
+}
+
+
+
+/* =========================
+   CONTACT
+========================== */
+
+.apex-contact {
+  width: 100%;
+  background: #000;
+  color: #fff;
+  padding: 80px 24px 110px;
+}
+
+.apex-contact__inner {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.apex-contact__title {
+  margin: 0 0 30px;
+  text-align: center;
+  font-size: clamp(52px, 5.5vw, 78px);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.apex-contact__intro {
+  max-width: 620px;
+  margin: 0 auto 55px;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255,255,255,.82);
+}
+
+.apex-contact__intro p {
+  margin: 0 0 18px;
+}
+
+.apex-contact__details {
+  color: rgba(255,255,255,.68);
+}
+
+.apex-contact__form {
+  width: 100%;
+}
+
+.apex-contact__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.apex-contact__field {
+  margin-bottom: 20px;
+}
+
+.apex-contact__field label {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,.7);
+}
+
+.apex-contact__field input,
+.apex-contact__field textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255,255,255,.28);
+
+  background: #111;
+  color: #fff;
+
+  padding: 17px 18px;
+
+  font-size: 16px;
+
+  outline: none;
+  border-radius: 0;
+}
+
+.apex-contact__field input {
+  height: 58px;
+}
+
+.apex-contact__field textarea {
+  min-height: 210px;
+  resize: vertical;
+}
+
+.apex-contact__field input:focus,
+.apex-contact__field textarea:focus {
+  border-color: #fff;
+}
+
+.apex-contact__submit {
+  min-width: 180px;
+  height: 55px;
+
+  margin-top: 8px;
+
+  border: 1px solid #fff;
+
+  background: #fff;
+  color: #000;
+
+  font-weight: 700;
+  letter-spacing: .1em;
+
+  cursor: pointer;
+}
+
+.apex-contact__success {
+  margin-bottom: 30px;
+
+  padding: 18px;
+
+  border: 1px solid rgba(255,255,255,.25);
+
+  text-align: center;
+  font-weight: 700;
+}
+
+
+
+/* =========================
+   SHIPPING
+========================== */
+
+.apex-policy {
+  width: 100%;
+  background: #000;
+  color: #fff;
+
+  padding: 75px 24px 90px;
+}
+
+.apex-policy__inner {
+  width: 100%;
+  max-width: 900px;
+
+  margin: 0 auto;
+}
+
+.apex-policy__header {
+  text-align: center;
+
+  margin-bottom: 50px;
+}
+
+.apex-policy__eyebrow {
+  display: block;
+
+  margin-bottom: 14px;
+
+  color: rgba(255,255,255,.46);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: .2em;
+}
+
+.apex-policy__title {
+  margin: 0;
+
+  font-size: clamp(46px, 5vw, 68px);
+  line-height: 1;
+
+  text-transform: uppercase;
+}
+
+.apex-policy__content {
+  max-width: 720px;
+
+  margin: 0 auto;
+}
+
+.apex-policy__block {
+  text-align: center;
+}
+
+.apex-policy__block h2 {
+  margin: 0 0 20px;
+
+  color: #fff;
+
+  font-size: 24px;
+
+  line-height: 1.2;
+
+  letter-spacing: .06em;
+}
+
+.apex-policy__block p {
+  margin: 0 auto 12px;
+
+  color: rgba(255,255,255,.68);
+
+  font-size: 16px;
+
+  line-height: 1.8;
+}
+
+.apex-policy__block strong {
+  color: #fff;
+}
+
+.apex-policy__divider {
+  width: 60px;
+  height: 1px;
+
+  margin: 42px auto;
+
+  background: rgba(255,255,255,.18);
+}
+
+.apex-policy__block--arabic h2 {
+  font-size: 28px;
+
+  letter-spacing: 0;
+}
+
+.apex-policy__block--arabic p {
+  max-width: 660px;
+
+  font-size: 17px;
+
+  line-height: 2;
+}
+
+
+
+/* =========================
+   RETURN POLICY
+========================== */
+
+.apex-return-policy {
+  width: 100%;
+
+  background: #000;
+
+  color: #fff;
+
+  padding: 80px 24px 110px;
+
+  box-sizing: border-box;
+}
+
+
+.apex-return-policy__inner {
+  width: 100%;
+
+  max-width: 940px;
+
+  margin: 0 auto;
+}
+
+
+.apex-return-policy__header {
+  max-width: 760px;
+
+  margin: 0 auto 65px;
+
+  text-align: center;
+}
+
+
+.apex-return-policy__eyebrow {
+  display: block;
+
+  margin-bottom: 15px;
+
+  color: rgba(255,255,255,.44);
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: .2em;
+}
+
+
+.apex-return-policy__title {
+  margin: 0;
+
+  color: #fff;
+
+  font-size: clamp(48px, 5.5vw, 76px);
+
+  line-height: .95;
+
+  text-transform: uppercase;
+}
+
+
+.apex-return-policy__subtitle {
+  max-width: 610px;
+
+  margin: 24px auto 0;
+
+  color: rgba(255,255,255,.55);
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+
+.apex-return-policy__content {
+  width: 100%;
+
+  max-width: 800px;
+
+  margin: 0 auto;
+
+  color: rgba(255,255,255,.72);
+
+  font-size: 16px;
+
+  line-height: 1.8;
+
+  text-align: left;
+}
+
+
+.apex-return-policy__content > :first-child {
+  margin-top: 0;
+}
+
+
+.apex-return-policy__content h1 {
+  display: none;
+}
+
+
+.apex-return-policy__content h2,
+.apex-return-policy__content h3,
+.apex-return-policy__content h4 {
+  color: #fff;
+
+  text-transform: uppercase;
+
+  letter-spacing: .08em;
+}
+
+
+.apex-return-policy__content h2 {
+  margin: 55px 0 20px;
+
+  padding-top: 40px;
+
+  border-top: 1px solid rgba(255,255,255,.14);
+
+  font-size: 23px;
+
+  line-height: 1.25;
+}
+
+
+.apex-return-policy__content h3 {
+  margin: 38px 0 16px;
+
+  font-size: 18px;
+
+  line-height: 1.3;
+}
+
+
+.apex-return-policy__content h4 {
+  margin: 30px 0 14px;
+
+  font-size: 15px;
+}
+
+
+.apex-return-policy__content p {
+  margin: 0 0 18px;
+}
+
+
+.apex-return-policy__content strong {
+  color: #fff;
+
+  font-weight: 700;
+}
+
+
+.apex-return-policy__content ul,
+.apex-return-policy__content ol {
+  margin: 0 0 28px;
+
+  padding-left: 24px;
+}
+
+
+.apex-return-policy__content li {
+  margin-bottom: 10px;
+
+  padding-left: 5px;
+}
+
+
+.apex-return-policy__content a {
+  color: #fff;
+
+  text-decoration: underline;
+
+  text-underline-offset: 4px;
+}
+
+
+.apex-return-policy__content hr {
+  width: 100%;
+
+  height: 1px;
+
+  margin: 45px 0;
+
+  border: 0;
+
+  background: rgba(255,255,255,.14);
+}
+
+
+.apex-return-policy__content [dir="rtl"],
+.apex-return-policy__content p[dir="rtl"] {
+  text-align: right;
+
+  direction: rtl;
+}
+
+
+.apex-return-policy__contact {
+  max-width: 800px;
+
+  margin: 65px auto 0;
+
+  padding-top: 32px;
+
+  border-top: 1px solid rgba(255,255,255,.15);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  color: rgba(255,255,255,.42);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: .1em;
+}
+
+
+.apex-return-policy__contact a {
+  color: #fff;
+
+  text-decoration: none;
+}
+
+
+.apex-return-policy__contact a:hover {
+  text-decoration: underline;
+}
+
+
+.apex-return-policy__contact-divider {
+  color: rgba(255,255,255,.25);
+}
+
+
+
+/* =========================
+   RETURNS & EXCHANGES
+========================== */
+
+.apex-returns {
+  width: 100%;
+
+  min-height: 760px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 70px 24px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #292929 0%,
+      #151515 45%,
+      #080808 100%
+    );
+}
+
+
+.apex-returns__card {
+  width: 100%;
+
+  max-width: 1000px;
+
+  box-sizing: border-box;
+
+  padding: 55px 75px 35px;
+
+  background: #eeeeee;
+
+  color: #111;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.5);
+}
+
+
+.apex-returns__brand {
+  margin-bottom: 40px;
+
+  text-align: center;
+
+  color: #111;
+
+  font-size: 24px;
+  font-weight: 800;
+
+  letter-spacing: .3em;
+}
+
+
+.apex-returns__header {
+  max-width: 720px;
+
+  margin: 0 auto 45px;
+
+  text-align: left;
+}
+
+
+.apex-returns__eyebrow {
+  display: block;
+
+  margin-bottom: 13px;
+
+  color: #777;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: .17em;
+}
+
+
+.apex-returns__title {
+  margin: 0;
+
+  color: #111;
+
+  font-size: clamp(29px, 3.2vw, 42px);
+  font-weight: 750;
+
+  line-height: 1.1;
+}
+
+
+.apex-returns__intro {
+  max-width: 560px;
+
+  margin: 16px 0 0;
+
+  color: #777;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+.apex-returns__form {
+  max-width: 720px;
+
+  margin: 0 auto;
+}
+
+
+.apex-returns__field {
+  margin-bottom: 32px;
+}
+
+
+.apex-returns__field label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #111;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+.apex-returns__field input {
+  width: 100%;
+  height: 48px;
+
+  box-sizing: border-box;
+
+  padding: 0;
+
+  border: 0;
+  border-bottom: 1px solid #aaa;
+
+  background: transparent;
+
+  color: #111;
+
+  font-size: 15px;
+
+  outline: none;
+
+  border-radius: 0;
+}
+
+
+.apex-returns__field input::placeholder {
+  color: #999;
+}
+
+
+.apex-returns__field input:focus {
+  border-bottom-color: #111;
+}
+
+
+.apex-returns__order-field {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+
+.apex-returns__order-field > span {
+  position: absolute;
+
+  left: 0;
+
+  color: #888;
+
+  font-size: 17px;
+
+  pointer-events: none;
+}
+
+
+.apex-returns__order-field input {
+  padding-left: 20px;
+}
+
+
+.apex-returns__actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 42px;
+}
+
+
+.apex-returns__policy,
+.apex-returns__next {
+  height: 50px;
+
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 24px;
+
+  border-radius: 5px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: .05em;
+
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+
+.apex-returns__policy {
+  border: 1px solid #bbb;
+
+  background: transparent;
+
+  color: #111;
+}
+
+
+.apex-returns__next {
+  min-width: 100px;
+
+  border: 1px solid #111;
+
+  background: #111;
+
+  color: #fff;
+}
+
+
+.apex-returns__track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  margin-top: 55px;
+
+  color: #777;
+
+  font-size: 13px;
+}
+
+
+.apex-returns__track a {
+  color: #111;
+
+  font-weight: 700;
+
+  text-decoration: underline;
+}
+
+
+.apex-returns__support {
+  margin-top: 35px;
+
+  padding-top: 24px;
+
+  border-top: 1px solid #d4d4d4;
+
+  color: #999;
+
+  font-size: 11px;
+}
+
+
+.apex-returns__support a {
+  color: #666;
+
+  text-decoration: none;
+}
+
+
+.apex-returns__success {
+  margin-bottom: 30px;
+
+  padding: 18px;
+
+  border: 1px solid #ccc;
+
+  text-align: center;
+}
+
+
+.apex-returns__success strong {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #111;
+
+  font-size: 12px;
+
+  letter-spacing: .1em;
+}
+
+
+.apex-returns__success p {
+  margin: 0;
+
+  color: #666;
+
+  font-size: 13px;
+
+  line-height: 1.6;
+}
+
+
+
+/* =========================
+   MOBILE
+========================== */
+
+@media screen and (max-width: 749px) {
+
+  .apex-about {
+    padding: 60px 20px 75px;
+  }
+
+  .apex-about__title {
+    margin-bottom: 38px;
+    font-size: 46px;
+  }
+
+  .apex-about__content {
+    font-size: 16px;
+  }
+
+
+  .apex-contact {
+    padding: 60px 20px 80px;
+  }
+
+  .apex-contact__title {
+    font-size: 46px;
+  }
+
+  .apex-contact__row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .apex-contact__submit {
+    width: 100%;
+  }
+
+
+  .apex-policy {
+    padding: 55px 20px 70px;
+  }
+
+  .apex-policy__title {
+    font-size: 42px;
+  }
+
+  .apex-policy__block h2 {
+    font-size: 21px;
+  }
+
+  .apex-policy__block p {
+    font-size: 14px;
+  }
+
+
+  /* RETURN POLICY MOBILE */
+
+  .apex-return-policy {
+    padding: 55px 20px 75px;
+  }
+
+
+  .apex-return-policy__header {
+    margin-bottom: 45px;
+  }
+
+
+  .apex-return-policy__title {
+    font-size: 42px;
+  }
+
+
+  .apex-return-policy__subtitle {
+    margin-top: 18px;
+
+    font-size: 13px;
+
+    line-height: 1.65;
+  }
+
+
+  .apex-return-policy__content {
+    font-size: 14px;
+
+    line-height: 1.75;
+  }
+
+
+  .apex-return-policy__content h2 {
+    margin-top: 42px;
+
+    padding-top: 30px;
+
+    font-size: 19px;
+  }
+
+
+  .apex-return-policy__content h3 {
+    margin-top: 30px;
+
+    font-size: 16px;
+  }
+
+
+  .apex-return-policy__content p {
+    margin-bottom: 16px;
+  }
+
+
+  .apex-return-policy__content ul,
+  .apex-return-policy__content ol {
+    padding-left: 19px;
+  }
+
+
+  .apex-return-policy__contact {
+    margin-top: 48px;
+
+    padding-top: 25px;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    text-align: center;
+  }
+
+
+  .apex-return-policy__contact-divider {
+    display: none;
+  }
+
+
+  .apex-returns {
+    min-height: auto;
+
+    padding: 30px 12px 50px;
+  }
+
+
+  .apex-returns__card {
+    padding: 35px 22px 28px;
+
+    border-radius: 8px;
+  }
+
+
+  .apex-returns__brand {
+    margin-bottom: 30px;
+
+    font-size: 20px;
+  }
+
+
+  .apex-returns__header {
+    margin-bottom: 35px;
+  }
+
+
+  .apex-returns__title {
+    font-size: 28px;
+  }
+
+
+  .apex-returns__intro {
+    font-size: 13px;
+  }
+
+
+  .apex-returns__actions {
+    margin-top: 32px;
+
+    width: 100%;
+  }
+
+
+  .apex-returns__policy,
+  .apex-returns__next {
+    flex: 1;
+
+    padding: 0 10px;
+  }
+
+
+  .apex-returns__track {
+    margin-top: 40px;
+
+    flex-wrap: wrap;
+  }
+
+}
+
+</style>
+
+
+
+{% schema %}
+{
+  "name": "Main page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "404 heading",
+      "default": "404 — PAGE NOT FOUND"
+    },
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "404 text",
+      "default": "The page you are looking for does not exist. Your path to the ascent continues elsewhere."
+    }
+  ]
+}
+{% endschema %}

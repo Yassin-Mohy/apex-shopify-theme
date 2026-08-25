@@ -1,0 +1,56 @@
+{%- if section.settings.show_announcement -%}
+  <div class="announcement-bar" role="region" aria-label="{{ 'sections.header.announcement' | t | default: 'Announcement' }}">
+    <div class="page-width text-center">
+      <p class="announcement-bar__message h6">
+        {{ section.settings.text | escape }}
+      </p>
+    </div>
+  </div>
+{%- endif -%}
+
+<style>
+  .announcement-bar {
+    background-color: {{ section.settings.color_bg }};
+    color: {{ section.settings.color_text }};
+    padding: 1rem 0;
+    position: relative;
+    z-index: 101;
+  }
+  .announcement-bar__message {
+    margin: 0;
+    font-size: 1.2rem;
+    letter-spacing: 0.1em;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "default": true,
+      "label": "Show announcement"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "default": "FREE SHIPPING ON ORDERS OVER 1500 EGP",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "default": "#000000",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "default": "#FFFFFF",
+      "label": "Text color"
+    }
+  ]
+}
+{% endschema %}

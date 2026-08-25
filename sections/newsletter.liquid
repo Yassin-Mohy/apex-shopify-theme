@@ -1,0 +1,7 @@
+<section class="newsletter-section section-spacing text-center">
+  <div class="page-width"><h2 class="h2">{{ section.settings.heading }}</h2><p class="color-secondary">{{ section.settings.text }}</p>
+  {%- form 'customer', class: 'newsletter-form' -%}<input type="hidden" name="contact[tags]" value="newsletter"><label class="visually-hidden" for="Newsletter-{{ section.id }}">Email</label><input id="Newsletter-{{ section.id }}" type="email" name="contact[email]" required autocomplete="email" placeholder="EMAIL ADDRESS"><button class="button button--primary" type="submit">{{ section.settings.button_label }}</button>{% if form.posted_successfully? %}<p role="status">WELCOME TO THE ASCENT.</p>{% endif %}{% if form.errors %}<div role="alert">{{ form.errors | default_errors }}</div>{% endif %}{%- endform -%}</div>
+</section>
+{% schema %}
+{"name":"Newsletter","settings":[{"type":"text","id":"heading","label":"Heading","default":"JOIN THE ASCENT"},{"type":"textarea","id":"text","label":"Text","default":"Be the first to know about new drops and early access."},{"type":"text","id":"button_label","label":"Button label","default":"JOIN NOW"}],"presets":[{"name":"Newsletter"}]}
+{% endschema %}

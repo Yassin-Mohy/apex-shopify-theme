@@ -1,0 +1,73 @@
+<div class="collection-statement section-spacing fade-up">
+  <div class="page-width text-center">
+    <div class="statement-content">
+
+      <h2 class="statement-heading">
+        THE ASCENT IS ONLY THE BEGINNING.
+      </h2>
+
+      <p class="statement-text">
+        Built for those who keep moving forward. Clean design. Performance-driven construction. Made for the next level.
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  .collection-statement {
+    background-color: #0A0A0A;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    padding: 12rem 0;
+  }
+
+  .statement-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .statement-heading {
+    font-size: calc(3rem + 2vw);
+    line-height: 1.1;
+    margin-bottom: 3rem;
+  }
+
+  .statement-text {
+    font-size: calc(1.6rem + 0.5vw);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 749px) {
+
+    .collection-statement {
+      padding: 8rem 0;
+    }
+
+    .statement-heading {
+      font-size: calc(2.6rem + 2vw);
+      margin-bottom: 2rem;
+    }
+
+    .statement-text {
+      font-size: 1.6rem;
+      max-width: 90%;
+    }
+
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Statement",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Collection Statement"
+    }
+  ]
+}
+{% endschema %}

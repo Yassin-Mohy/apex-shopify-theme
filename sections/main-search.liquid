@@ -1,0 +1,375 @@
+<div class="main-search page-width section-spacing fade-up">
+
+  <div class="section-header text-center">
+
+    <h1 class="h2 uppercase">
+      SEARCH RESULTS
+    </h1>
+
+    <predictive-search class="apex-search-wrapper">
+
+      <form
+        action="{{ routes.search_url }}"
+        method="get"
+        role="search"
+        class="search-form"
+      >
+
+        <div class="search-input-field-wrap">
+
+          <input
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            placeholder="SEARCH THE DROP..."
+            class="predictive-search-input-box"
+            id="SearchPageInput"
+          >
+
+          <input
+            type="hidden"
+            name="type"
+            value="product"
+          >
+
+          <button
+            type="submit"
+            class="search-submit-btn"
+            aria-label="Submit search"
+          >
+            {% render 'icon-search' %}
+          </button>
+
+        </div>
+
+        <div
+          id="predictive-search-results"
+          tabindex="-1"
+        ></div>
+
+      </form>
+
+    </predictive-search>
+
+  </div>
+
+
+  {%- if search.performed -%}
+
+    {%- if search.results_count > 0 -%}
+
+      <div class="apex-search-grid">
+
+        {%- for item in search.results -%}
+
+          {%- if item.object_type == 'product' -%}
+
+            <div class="apex-search-grid__item">
+
+              {% render 'product-card', product: item %}
+
+            </div>
+
+          {%- endif -%}
+
+        {%- endfor -%}
+
+      </div>
+
+
+    {%- else -%}
+
+      <div class="search-empty-state text-center">
+
+        <p class="body-text color-secondary">
+          No results found for "{{ search.terms | escape }}".
+          Try searching for another product.
+        </p>
+
+      </div>
+
+    {%- endif -%}
+
+  {%- endif -%}
+
+</div>
+
+
+<style>
+
+  /* =========================
+     SEARCH HEADER
+  ========================== */
+
+  .main-search {
+    width: 100%;
+  }
+
+  .main-search .section-header {
+    margin-bottom: 0;
+  }
+
+  .main-search .section-header h1 {
+    margin-bottom: 0;
+  }
+
+  .apex-search-wrapper {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 3rem auto 0;
+  }
+
+
+  /* =========================
+     SEARCH INPUT
+  ========================== */
+
+  .search-input-field-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  .predictive-search-input-box {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.5rem 0;
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-family: var(--font-heading-family);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .predictive-search-input-box::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+  .predictive-search-input-box:focus {
+    outline: none;
+  }
+
+  .search-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0 1rem;
+  }
+
+  .search-submit-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+
+  /* =========================
+     PRODUCT GRID
+  ========================== */
+
+  .apex-search-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 3rem 2rem;
+    margin-top: 5rem;
+    width: 100%;
+  }
+
+  .apex-search-grid__item {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .apex-search-grid__item .product-card,
+  .apex-search-grid__item .card,
+  .apex-search-grid__item article {
+    width: 100%;
+    max-width: 100%;
+  }
+
+
+  /* =========================
+     REMOVE GREY STRIP
+  ========================== */
+
+  .apex-search-grid__item .product-card__image,
+  .apex-search-grid__item .product-card__media,
+  .apex-search-grid__item .card__media,
+  .apex-search-grid__item .media {
+    width: 100% !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    overflow: hidden !important;
+
+    line-height: 0 !important;
+
+    font-size: 0 !important;
+  }
+
+  .apex-search-grid__item img,
+  .apex-search-grid__item .product-card__image img,
+  .apex-search-grid__item .product-card__media img,
+  .apex-search-grid__item .card__media img,
+  .apex-search-grid__item .media img {
+    display: block !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+
+    vertical-align: top !important;
+
+    object-fit: cover !important;
+  }
+
+  .apex-search-grid__item .product-card__image::before,
+  .apex-search-grid__item .product-card__image::after,
+  .apex-search-grid__item .product-card__media::before,
+  .apex-search-grid__item .product-card__media::after,
+  .apex-search-grid__item .card__media::before,
+  .apex-search-grid__item .card__media::after,
+  .apex-search-grid__item .media::before,
+  .apex-search-grid__item .media::after {
+    display: none !important;
+    content: none !important;
+  }
+
+
+  /* =========================
+     PRODUCT IMAGE RATIO
+  ========================== */
+
+  .apex-search-grid__item .product-card__image,
+  .apex-search-grid__item .product-card__media,
+  .apex-search-grid__item .card__media {
+    aspect-ratio: 4 / 5;
+  }
+
+
+  /* =========================
+     EMPTY STATE
+  ========================== */
+
+  .search-empty-state {
+    padding: 7rem 0;
+  }
+
+
+  /* =========================
+     PREDICTIVE SEARCH
+  ========================== */
+
+  .predictive-results-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #111;
+    border: 1px solid var(--color-border);
+    border-top: none;
+    z-index: 110;
+    text-align: left;
+  }
+
+  .predictive-results-list-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .predictive-img {
+    width: 50px;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+  }
+
+
+  /* =========================
+     TABLET
+  ========================== */
+
+  @media screen and (max-width: 989px) {
+
+    .apex-search-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2.5rem 1.5rem;
+      margin-top: 4rem;
+    }
+
+  }
+
+
+  /* =========================
+     MOBILE
+  ========================== */
+
+  @media screen and (max-width: 749px) {
+
+    .main-search {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .main-search .section-header h1 {
+      font-size: 3.2rem;
+    }
+
+    .apex-search-wrapper {
+      margin-top: 2.5rem;
+    }
+
+    .predictive-search-input-box {
+      font-size: 1.4rem;
+      padding: 1.3rem 0;
+    }
+
+    .search-submit-btn {
+      padding: 0 0.5rem;
+    }
+
+    .search-submit-btn svg {
+      width: 21px;
+      height: 21px;
+    }
+
+    .apex-search-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2rem 1rem;
+      margin-top: 3.5rem;
+    }
+
+  }
+
+
+  /* =========================
+     VERY SMALL MOBILE
+  ========================== */
+
+  @media screen and (max-width: 420px) {
+
+    .apex-search-grid {
+      gap: 1.6rem 0.8rem;
+    }
+
+  }
+
+</style>

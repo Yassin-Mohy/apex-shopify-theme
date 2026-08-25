@@ -1,0 +1,10 @@
+{%- comment -%}Expected variables: image, class, loading, sizes, widths, alt{%- endcomment -%}
+{%- if image != blank -%}
+  {{ image | image_url: width: 2000 | image_tag:
+    class: class,
+    loading: loading | default: 'lazy',
+    sizes: sizes | default: '100vw',
+    widths: widths | default: '375, 550, 750, 1100, 1500, 2000',
+    alt: alt | default: image.alt | escape
+  }}
+{%- endif -%}

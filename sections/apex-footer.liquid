@@ -1,0 +1,603 @@
+<footer class="apex-footer">
+  <div class="page-width">
+
+    <div class="footer-grid">
+
+      <!-- BRAND COLUMN -->
+      <div class="footer-column brand-info fade-up">
+
+        <h2 class="h3 footer-logo">
+          {{ shop.name | upcase }}
+        </h2>
+
+        <p class="body-text color-secondary footer-desc">
+          Premium performance wear built for those who train with purpose.
+          Clean design, athletic construction, and functional essentials made in Egypt.
+        </p>
+
+        <!-- INSTAGRAM -->
+        <div class="footer-socials">
+
+          <a
+            href="https://www.instagram.com/apexwear_eg/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-instagram-link"
+            aria-label="APEX Instagram"
+          >
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+
+              <rect
+                x="3"
+                y="3"
+                width="18"
+                height="18"
+                rx="5"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+
+              <circle
+                cx="12"
+                cy="12"
+                r="4"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+
+              <circle
+                cx="17.5"
+                cy="6.5"
+                r="1"
+                fill="currentColor"
+              />
+
+            </svg>
+
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUICK LINKS -->
+      <div class="footer-column navigation-menu fade-up delay-1">
+
+        <h3 class="h5 footer-column-heading">
+          QUICK LINKS
+        </h3>
+
+        <ul class="footer-links-list">
+
+          <li>
+            <a
+              href="/collections/the-ascent"
+              class="body-text footer-link"
+            >
+              Shop
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/pages/about-us"
+              class="body-text footer-link"
+            >
+              About Us
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/pages/contact"
+              class="body-text footer-link"
+            >
+              Contact
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/pages/shipping-policy"
+              class="body-text footer-link"
+            >
+              Shipping
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="/pages/returns-exchanges"
+              class="body-text footer-link"
+            >
+              Return Policy
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <!-- NEWSLETTER -->
+      <div class="footer-column newsletter-column fade-up delay-2">
+
+        <h3 class="h5 footer-column-heading">
+          JOIN OUR EMAIL LIST
+        </h3>
+
+        <p class="body-text color-secondary newsletter-description">
+          Be the first to know about new drops, exclusive releases, and early access.
+        </p>
+
+
+        {%- form 'customer', class: 'footer-newsletter-form' -%}
+
+          <input
+            type="hidden"
+            name="contact[tags]"
+            value="newsletter"
+          >
+
+
+          <div class="newsletter-field-group">
+
+            <input
+              id="NewsletterForm--{{ section.id }}"
+              type="email"
+              name="contact[email]"
+              class="newsletter-input uppercase"
+              value="{{ form.email }}"
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              placeholder="ENTER EMAIL ADDRESS"
+              required
+            >
+
+
+            <button
+              type="submit"
+              class="button button--primary newsletter-submit-btn"
+              name="commit"
+              id="Subscribe"
+            >
+              JOIN
+            </button>
+
+          </div>
+
+
+          {%- if form.posted_successfully? -%}
+
+            <p
+              class="newsletter-success h6 uppercase"
+              id="Newsletter-success--{{ section.id }}"
+              tabindex="-1"
+              autofocus
+            >
+              You're on the list. Watch your inbox.
+            </p>
+
+          {%- endif -%}
+
+
+          {%- if form.errors -%}
+
+            <div class="newsletter-error">
+              {{ form.errors | default_errors }}
+            </div>
+
+          {%- endif -%}
+
+        {%- endform -%}
+
+      </div>
+
+    </div>
+
+
+    <!-- FOOTER BOTTOM -->
+    <div class="footer-bottom">
+
+      <div class="footer-bottom__copyright color-secondary">
+        &copy; {{ 'now' | date: '%Y' }} APEX. Built for Your Peak.
+      </div>
+
+
+      <div class="footer-bottom__payment-gateways">
+
+        <span class="visually-hidden">
+          Accepted Payment Methods
+        </span>
+
+
+        <ul class="payment-icons-list">
+
+          {%- for type in shop.enabled_payment_types -%}
+
+            <li class="payment-icon-item">
+              {{ type | payment_type_svg_tag: class: 'icon icon--payment' }}
+            </li>
+
+          {%- endfor -%}
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+</footer>
+
+
+<style>
+
+  /* =========================
+     FOOTER
+  ========================== */
+
+  .apex-footer {
+    background-color: #000000;
+    border-top: 1px solid var(--color-border);
+    padding: 7rem 0 3.5rem;
+    margin-top: auto;
+  }
+
+
+  /* =========================
+     MAIN GRID
+  ========================== */
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    margin-bottom: 5rem;
+  }
+
+
+  @media screen and (min-width: 750px) {
+
+    .footer-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+  }
+
+
+  @media screen and (min-width: 990px) {
+
+    .footer-grid {
+      grid-template-columns:
+        minmax(0, 1.25fr)
+        minmax(180px, 0.65fr)
+        minmax(320px, 1.1fr);
+
+      gap: 6rem;
+      align-items: start;
+    }
+
+  }
+
+
+  /* =========================
+     BRAND
+  ========================== */
+
+  .footer-logo {
+    margin: 0 0 2rem;
+    letter-spacing: 0.18em;
+  }
+
+
+  .footer-desc {
+    font-size: 1.4rem;
+    line-height: 1.75;
+    max-width: 390px;
+    margin: 0 0 2.5rem;
+  }
+
+
+  /* =========================
+     SOCIAL
+  ========================== */
+
+  .footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+
+  .footer-instagram-link {
+    width: 28px;
+    height: 28px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-text-secondary);
+
+    text-decoration: none;
+
+    transition:
+      color .2s ease,
+      transform .2s ease;
+  }
+
+
+  .footer-instagram-link svg {
+    width: 26px;
+    height: 26px;
+    display: block;
+  }
+
+
+  .footer-instagram-link:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+
+
+  /* =========================
+     HEADINGS
+  ========================== */
+
+  .footer-column-heading {
+    margin: 0 0 2.2rem;
+    letter-spacing: 0.1em;
+  }
+
+
+  /* =========================
+     QUICK LINKS
+  ========================== */
+
+  .footer-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+  }
+
+
+  .footer-link {
+    display: inline-block;
+
+    font-size: 1.4rem;
+
+    color: var(--color-text-secondary);
+
+    text-decoration: none;
+
+    transition:
+      color var(--transition-default),
+      transform var(--transition-default);
+  }
+
+
+  .footer-link:hover {
+    color: var(--color-text);
+    transform: translateX(3px);
+  }
+
+
+  /* =========================
+     NEWSLETTER
+  ========================== */
+
+  .newsletter-description {
+    font-size: 1.4rem;
+    line-height: 1.7;
+    max-width: 390px;
+    margin: 0 0 2rem;
+  }
+
+
+  .footer-newsletter-form {
+    max-width: 440px;
+  }
+
+
+  .newsletter-field-group {
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+
+  .newsletter-input {
+    flex: 1;
+    min-width: 0;
+
+    background: transparent;
+
+    border: 1px solid var(--color-border);
+
+    color: #FFFFFF;
+
+    font-size: 1.2rem;
+
+    padding: 1.3rem 1.4rem;
+
+    letter-spacing: 0.05em;
+  }
+
+
+  .newsletter-input::placeholder {
+    color: var(--color-text-secondary);
+  }
+
+
+  .newsletter-input:focus {
+    outline: 1px solid #FFFFFF;
+    outline-offset: -1px;
+  }
+
+
+  .newsletter-submit-btn {
+    min-height: auto;
+    min-width: auto;
+
+    padding: 1.2rem 2.2rem;
+
+    font-size: 1.2rem;
+
+    white-space: nowrap;
+  }
+
+
+  .newsletter-success {
+    color: var(--color-success);
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+  }
+
+
+  .newsletter-error {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+  }
+
+
+  /* =========================
+     FOOTER BOTTOM
+  ========================== */
+
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2rem;
+
+    align-items: flex-start;
+
+    padding-top: 3rem;
+
+    border-top: 1px solid var(--color-border);
+
+    font-size: 1.2rem;
+  }
+
+
+  @media screen and (min-width: 750px) {
+
+    .footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+  }
+
+
+  /* =========================
+     PAYMENT ICONS
+  ========================== */
+
+  .payment-icons-list {
+    display: flex;
+    align-items: center;
+
+    gap: 0.8rem;
+
+    flex-wrap: wrap;
+
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+  }
+
+
+  .payment-icon-item {
+    display: flex;
+  }
+
+
+  .icon--payment {
+    width: 38px;
+    height: 24px;
+  }
+
+
+  /* =========================
+     MOBILE
+  ========================== */
+
+  @media screen and (max-width: 749px) {
+
+    .apex-footer {
+      padding: 5rem 0 3rem;
+    }
+
+
+    .footer-grid {
+      gap: 3.5rem;
+      margin-bottom: 4rem;
+    }
+
+
+    .footer-logo {
+      margin-bottom: 1.5rem;
+    }
+
+
+    .footer-desc,
+    .newsletter-description {
+      max-width: 100%;
+    }
+
+
+    .newsletter-field-group {
+      gap: 0.8rem;
+    }
+
+
+    .newsletter-input {
+      font-size: 1.1rem;
+      padding: 1.2rem 1rem;
+    }
+
+
+    .newsletter-submit-btn {
+      padding: 1.2rem 1.6rem;
+    }
+
+
+    .footer-bottom {
+      align-items: flex-start;
+    }
+
+  }
+
+</style>
+
+
+{% schema %}
+{
+  "name": "APEX Footer",
+  "settings": [],
+  "presets": [
+    {
+      "name": "APEX Footer"
+    }
+  ]
+}
+{% endschema %}

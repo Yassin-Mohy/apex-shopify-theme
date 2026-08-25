@@ -1,0 +1,88 @@
+<div class="main-cart page-width section-spacing fade-up">
+  <div class="section-header text-center">
+    <h1 class="h2 uppercase">Your Cart</h1>
+  </div>
+
+  <div class="cart-page-content" id="MainCartContainer">
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" id="cart" class="cart-form">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th class="h6 uppercase color-secondary" colspan="2">Product</th>
+              <th class="h6 uppercase color-secondary text-center">Quantity</th>
+              <th class="h6 uppercase color-secondary text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for item in cart.items -%}
+              <tr class="cart-table-row" data-key="{{ item.key }}">
+                <td class="cart-td-image">
+                  {%- if item.image != blank -%}
+                    <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" class="cart-table-img" loading="lazy">
+                  {%- endif -%}
+                </td>
+                <td class="cart-td-details">
+                  <a href="{{ item.url }}" class="h5 uppercase item-title-link">{{ item.product.title }}</a>
+                  {%- unless item.product.has_only_default_variant -%}
+                    <p class="body-text color-secondary">{{ item.options_with_values | map: 'value' | join: ' / ' }}</p>
+                  {%- endunless -%}
+                  <p class="body-text item-unit-price">{{ item.final_price | money }}</p>
+                </td>
+                <td class="cart-td-qty text-center">
+                  <div class="quantity-input-selector">
+                    <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity={{ item.quantity | minus: 1 }}" class="quantity-btn line-item-qty-adjust">-</a>
+                    <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" class="quantity-field" readonly>
+                    <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity={{ item.quantity | plus: 1 }}" class="quantity-btn line-item-qty-adjust">+</a>
+                  </div>
+                  <div style="margin-top:0.8rem">
+                    <a href="{{ routes.cart_change_url }}?id={{ item.key }}&quantity=0" class="body-text color-secondary text-underline uppercase">Remove</a>
+                  </div>
+                </td>
+                <td class="cart-td-total text-right h5">
+                  {{ item.final_line_price | money }}
+                </td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+
+        <div class="cart-summary-block">
+          <div class="cart-note-area">
+            <label for="CartNote" class="h6 uppercase color-secondary">Order Instructions (Optional)</label>
+            <textarea name="note" id="CartNote" class="cart-note-input" rows="4">{{ cart.note }}</textarea>
+          </div>
+          <div class="cart-totals-area">
+            <div class="cart-subtotal-line">
+              <span class="h4 uppercase">Estimated Total</span>
+              <span class="h3">{{ cart.total_price | money }}</span>
+            </div>
+            <p class="body-text color-secondary text-right uppercase" style="font-size:1.2rem; margin-bottom: 2.5rem;">Taxes and shipping calculated at checkout</p>
+            <button type="submit" name="checkout" class="button button--primary button--full-width h5">PROCEED TO CHECKOUT</button>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="cart-empty-fallback text-center" style="padding:10rem 0;">
+        <h2 class="h3 uppercase">Your cart is currently empty</h2>
+        <p class="body-text color-secondary" style="margin:2rem 0 3rem 0;">Ready for the ascent? Explore our collection drops built for performance.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button button--primary">Shop Collections</a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .cart-table { width: 100%; border-collapse: collapse; margin-top: 4rem; }
+  .cart-table th { padding: 1.5rem; border-bottom: 1px solid var(--color-border); text-align: left; }
+  .cart-table td { padding: 3rem 1.5rem; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+  .cart-td-image { width: 120px; }
+  .cart-table-img { width: 100px; aspect-ratio:3/4; object-fit: cover; border-radius: var(--border-radius); }
+  .item-title-link { display:block; margin-bottom: 0.5rem; }
+  .cart-summary-block { display: grid; grid-template-columns: 1fr; gap: 4rem; margin-top: 5rem; }
+  @media screen and (min-width: 750px) {
+    .cart-summary-block { grid-template-columns: 1.2fr 0.8fr; }
+  }
+  .cart-note-input { width: 100%; background: transparent; border: 1px solid var(--color-border); padding: 1.5rem; color: #FFF; margin-top: 1rem; border-radius: var(--border-radius); resize: none;}
+  .cart-subtotal-line { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+</style>

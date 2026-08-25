@@ -1,0 +1,265 @@
+<product-recommendations
+  class="product-recommendations page-width section-spacing"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}"
+>
+
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+
+    <div class="product-recommendations__header">
+      <h2 class="product-recommendations__heading">
+        {{ section.settings.heading }}
+      </h2>
+    </div>
+
+    <div class="product-recommendations__viewport">
+
+      <div class="product-grid product-recommendations__grid">
+
+        {%- for product in recommendations.products -%}
+
+          <div class="product-recommendations__item">
+            {% render 'product-card', product: product %}
+          </div>
+
+        {%- endfor -%}
+
+      </div>
+
+    </div>
+
+  {%- endif -%}
+
+</product-recommendations>
+
+
+<style>
+
+  /* =========================
+     PRODUCT RECOMMENDATIONS
+  ========================== */
+
+  .product-recommendations {
+    width: 100%;
+  }
+
+
+  .product-recommendations__header {
+    margin-bottom: 30px;
+  }
+
+
+  .product-recommendations__heading {
+    margin: 0;
+
+    font-size: clamp(34px, 3.2vw, 52px);
+    font-weight: 700;
+    line-height: 1;
+
+    letter-spacing: -0.02em;
+
+    text-transform: uppercase;
+  }
+
+
+
+  /* =========================
+     DESKTOP GRID
+  ========================== */
+
+  .product-recommendations__viewport {
+    width: 100%;
+  }
+
+
+  .product-recommendations__grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 24px;
+
+    width: 100%;
+  }
+
+
+  .product-recommendations__item {
+    width: 100%;
+
+    min-width: 0;
+  }
+
+
+
+  /* =========================
+     PRODUCT CARD IMAGE
+  ========================== */
+
+  .product-recommendations__item img {
+    width: 100%;
+
+    aspect-ratio: 3 / 4;
+
+    object-fit: cover;
+
+    display: block;
+  }
+
+
+
+  /* =========================
+     TABLET
+  ========================== */
+
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+
+    .product-recommendations__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      gap: 20px;
+    }
+
+  }
+
+
+
+  /* =========================
+     MOBILE HORIZONTAL SLIDER
+  ========================== */
+
+  @media screen and (max-width: 749px) {
+
+    .product-recommendations {
+      overflow: hidden;
+    }
+
+
+    .product-recommendations__header {
+      margin-bottom: 20px;
+    }
+
+
+    .product-recommendations__heading {
+      font-size: 30px;
+      line-height: 1.05;
+    }
+
+
+    .product-recommendations__viewport {
+      overflow: visible;
+    }
+
+
+    .product-recommendations__grid {
+      display: flex;
+
+      gap: 14px;
+
+      overflow-x: auto;
+
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+
+      -webkit-overflow-scrolling: touch;
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      padding-bottom: 8px;
+    }
+
+
+    .product-recommendations__grid::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    .product-recommendations__item {
+      flex: 0 0 78%;
+
+      scroll-snap-align: start;
+    }
+
+
+    .product-recommendations__item img {
+      aspect-ratio: 3 / 4;
+    }
+
+  }
+
+
+
+  /* =========================
+     SMALL MOBILE
+  ========================== */
+
+  @media screen and (max-width: 420px) {
+
+    .product-recommendations__item {
+      flex-basis: 82%;
+    }
+
+
+    .product-recommendations__heading {
+      font-size: 27px;
+    }
+
+  }
+
+</style>
+
+
+<script>
+  document.querySelectorAll('product-recommendations').forEach((el) => {
+
+    fetch(el.dataset.url)
+
+      .then((response) => response.text())
+
+      .then((text) => {
+
+        const html = new DOMParser().parseFromString(
+          text,
+          'text/html'
+        );
+
+        const recommendations = html.querySelector(
+          'product-recommendations'
+        );
+
+        if (recommendations) {
+          el.innerHTML = recommendations.innerHTML;
+        }
+
+      });
+
+  });
+</script>
+
+
+{% schema %}
+{
+  "name": "Product recommendations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "YOU MAY ALSO LIKE"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product recommendations"
+    }
+  ]
+}
+{% endschema %}
